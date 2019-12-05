@@ -50,37 +50,6 @@ public class AddressBookServices implements BookBehaviorDefinition
    @Override
    public boolean addData(File filename) throws AddressBookExceptions
    {
-      System.out.println("Enter Data");
-      System.out.println("Enter FirstName");
-      ObjectDependency.personData.setFirstName(input.next());
-      System.out.println("Enter LastName");
-      ObjectDependency.personData.setLastName(input.next());
-      System.out.println("Enter Address");
-      ObjectDependency.personData.setAddress(input.next());
-      System.out.println("Enter City");
-      ObjectDependency.personData.setCity(input.next());
-      System.out.println("Enter State");
-      ObjectDependency.personData.setState(input.next());
-      System.out.println("Enter Zip Code");
-      ObjectDependency.personData.setZip(input.nextInt());
-      System.out.println("Enter Phone Number");
-      ObjectDependency.personData.setZip(input.nextInt());
-
-      personList.add(ObjectDependency.personData);
-      ObjectDependency.bookData.setPersonsList(personList);
-
-      try
-      {
-         FileWriter writer = new FileWriter(filename);
-         writer.write(ObjectDependency.gson.toJson(ObjectDependency.bookData));
-         writer.close();
-         return true;
-      }
-      catch (IOException e)
-      {
-         throw new AddressBookExceptions
-               (addressBookExceptions.exceptionType.IO_EXCEPTION, "File Cannot be created");
-      }
 
    }
 
