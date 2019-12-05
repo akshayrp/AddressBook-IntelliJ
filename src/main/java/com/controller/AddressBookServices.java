@@ -12,9 +12,8 @@ import java.util.Scanner;
 
 public class AddressBookServices implements BookBehaviorDefinition
 {
-   AddressBookExceptions addressBookExceptions = new AddressBookExceptions();
+
    ObjectFactory ObjectDependency = new ObjectFactory();
-   Scanner input = new Scanner(System.in);
    List<Person> personList = new ArrayList<Person>();
 
    @Override
@@ -23,17 +22,17 @@ public class AddressBookServices implements BookBehaviorDefinition
       File fileName = new File(bookName + ".json");
       try
       {
-         if (fileName.length() == 0)
+         if (bookName == null || bookName.length() == 0)
          {
             throw new AddressBookExceptions
-                  (addressBookExceptions.exceptionType.NULL_FILENAME, "FileName Cannot Be Empty");
+                  (ObjectDependency.addressBookExceptions.exceptionType.NULL_FILENAME, "File Name cannot be null");
          }
 
-         if(fileName.createNewFile())
+         if (fileName.createNewFile())
             return true;
          else
             throw new AddressBookExceptions
-                  (addressBookExceptions.exceptionType.IO_EXCEPTION, "File Cannot be created");
+                  (ObjectDependency.addressBookExceptions.exceptionType.IO_EXCEPTION, "File Cannot be created");
       }
       catch (AddressBookExceptions bookExceptions)
       {
@@ -42,31 +41,75 @@ public class AddressBookServices implements BookBehaviorDefinition
       }
       catch (IOException e)
       {
-         System.out.println(addressBookExceptions.getMessage());
+         System.out.println(ObjectDependency.addressBookExceptions.getMessage());
+         return false;
       }
+   }
+
+   @Override
+   public boolean addData(String bookName,String fName,String lName,String Add,String City,String State,int Zip,int Phone) throws AddressBookExceptions
+   {
+      File fileName = new File(bookName + ".json");
+      if(fileName.exists())
+      {
+         System.out.println("Enter Data");
+         System.out.println("Enter FirstName");
+        // ObjectDependency.personData.setFirstName(input.nextLine());
+         ObjectDependency.personData.setFirstName(fName);
+         System.out.println("Enter LastName");
+        // ObjectDependency.personData.setLastName(input.nextLine());
+         ObjectDependency.personData.setLastName(lName);
+         System.out.println("Enter Address");
+        // ObjectDependency.personData.setAddress(input.nextLine());
+         ObjectDependency.personData.setAddress(Add);
+         System.out.println("Enter City");
+        // ObjectDependency.personData.setCity(input.nextLine());
+         ObjectDependency.personData.setCity(City);
+         System.out.println("Enter State");
+        // ObjectDependency.personData.setState(input.nextLine());
+         ObjectDependency.personData.setState(State);
+         System.out.println("Enter Zip Code");
+        // ObjectDependency.personData.setZip(input.nextInt());
+         ObjectDependency.personData.setZip(Zip);
+         System.out.println("Enter Phone Number");
+        // ObjectDependency.personData.setZip(input.nextInt());
+         ObjectDependency.personData.setPhoneNumber(Phone);
+
+         personList.add(ObjectDependency.personData);
+         ObjectDependency.bookData.setPersonsList(personList);
+
+         try
+         {
+            FileWriter writer = new FileWriter(fileName);
+            writer.write(ObjectDependency.gson.toJson(ObjectDependency.bookData));
+            writer.close();
+            return true;
+         }
+         catch (IOException e)
+         {
+            throw new AddressBookExceptions
+                  (ObjectDependency.addressBookExceptions.exceptionType.IO_EXCEPTION, "File Cannot be created");
+         }
+      }
+      if(fileName.length() > 0)
+         return true;
       return false;
    }
 
    @Override
-   public boolean addData(File filename) throws AddressBookExceptions
+   public void openFile(String bookName)
    {
 
    }
 
    @Override
-   public void openFile(File FileName)
+   public void saveAs(String bookName)
    {
 
    }
 
    @Override
-   public void saveAs(File FileName)
-   {
-
-   }
-
-   @Override
-   public void ReadFromFile(File FileName)
+   public void ReadFromFile(String bookName)
    {
 
    }

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.controller.AddressBookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-05T05:57:59" hostname="admin1-desktop" time="0.003">
+<testsuite name="com.controller.AddressBookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-05T10:33:16" hostname="admin1-desktop" time="0.001">
   <properties/>
-  <testcase name="givenNewFileName_WhenStringNull_throwsException" classname="com.controller.AddressBookTest" time="0.003"/>
-  <system-out><![CDATA[FileName Cannot Be Empty
-]]></system-out>
+  <testcase name="givenFileNameAndData_WhenDataNull_ThrowsException" classname="com.controller.AddressBookTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -2,14 +2,13 @@ package com.controller;
 
 import com.Exceptions.AddressBookExceptions;
 
-import java.io.File;
 import java.io.IOException;
 
 public interface BookBehaviorDefinition
 {
    public boolean newAddressBook(String bookName) throws AddressBookExceptions;
-   public boolean addData(File filename) throws IOException, AddressBookExceptions;
-   public void  openFile(File FileName);
-   public void saveAs(File FileName);
-   public void ReadFromFile(File FileName);
+   public boolean addData(String bookName,String fName,String lName,String Add,String City,String State,int Zip,int Phone) throws AddressBookExceptions;
+   public void  openFile(String bookName);
+   public void saveAs(String bookName);
+   public void ReadFromFile(String bookName);
 }
