@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 
 
 public class AddressBookTest
@@ -15,7 +16,7 @@ public class AddressBookTest
    @Test
    public void givenNewFileName_WhenCorrect_CreatesNewJsonFile() throws AddressBookExceptions
    {
-      Assert.assertTrue(service.newAddressBook("FirstFile"));
+      Assert.assertTrue(service.newAddressBook("firstFile"));
    }
 
    @Test
@@ -33,7 +34,7 @@ public class AddressBookTest
    @Test
    public void givenFileNameAndData_WhenCorrectAndExist_AddDataIntoFile() throws AddressBookExceptions
    {
-      Assert.assertTrue(service.addData("FirstFile","Akshay","Patwari","Kothrud","Pune","Maharashtra",0114520,789456123));
+      Assert.assertTrue(service.addData("firstFile","Akshay","Patwari","Kothrud","Pune","Maharashtra",0114520,789456123));
    }
 
    @Test
@@ -42,5 +43,15 @@ public class AddressBookTest
       Assert.assertFalse(service.addData("firstFile",null,null,null,null,null,0,0));
    }
 
+   @Test
+   public void givenFileName_WhenExist_OpensFileToReadData() throws AddressBookExceptions
+   {
+      Assert.assertTrue(service.openFile("FirstFile"));
+   }
 
+   @Test
+   public void givenFileName_WhenDoNotExist_HandlesException() throws AddressBookExceptions
+   {
+      Assert.assertFalse(service.openFile("abc"));
+   }
 }

@@ -1,14 +1,12 @@
 package com.controller;
 
 import com.Exceptions.AddressBookExceptions;
+import com.model.AddressBook;
 import com.model.Person;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class AddressBookServices implements BookBehaviorDefinition
 {
@@ -47,32 +45,32 @@ public class AddressBookServices implements BookBehaviorDefinition
    }
 
    @Override
-   public boolean addData(String bookName,String fName,String lName,String Add,String City,String State,int Zip,int Phone) throws AddressBookExceptions
+   public boolean addData(String bookName, String fName, String lName, String Add, String City, String State, int Zip, int Phone) throws AddressBookExceptions
    {
       File fileName = new File(bookName + ".json");
-      if(fileName.exists())
+      if (fileName.exists())
       {
          System.out.println("Enter Data");
          System.out.println("Enter FirstName");
-        // ObjectDependency.personData.setFirstName(input.nextLine());
+         // ObjectDependency.personData.setFirstName(input.nextLine());
          ObjectDependency.personData.setFirstName(fName);
          System.out.println("Enter LastName");
-        // ObjectDependency.personData.setLastName(input.nextLine());
+         // ObjectDependency.personData.setLastName(input.nextLine());
          ObjectDependency.personData.setLastName(lName);
          System.out.println("Enter Address");
-        // ObjectDependency.personData.setAddress(input.nextLine());
+         // ObjectDependency.personData.setAddress(input.nextLine());
          ObjectDependency.personData.setAddress(Add);
          System.out.println("Enter City");
-        // ObjectDependency.personData.setCity(input.nextLine());
+         // ObjectDependency.personData.setCity(input.nextLine());
          ObjectDependency.personData.setCity(City);
          System.out.println("Enter State");
-        // ObjectDependency.personData.setState(input.nextLine());
+         // ObjectDependency.personData.setState(input.nextLine());
          ObjectDependency.personData.setState(State);
          System.out.println("Enter Zip Code");
-        // ObjectDependency.personData.setZip(input.nextInt());
+         // ObjectDependency.personData.setZip(input.nextInt());
          ObjectDependency.personData.setZip(Zip);
          System.out.println("Enter Phone Number");
-        // ObjectDependency.personData.setZip(input.nextInt());
+         // ObjectDependency.personData.setZip(input.nextInt());
          ObjectDependency.personData.setPhoneNumber(Phone);
 
          personList.add(ObjectDependency.personData);
@@ -91,15 +89,40 @@ public class AddressBookServices implements BookBehaviorDefinition
                   (ObjectDependency.addressBookExceptions.exceptionType.IO_EXCEPTION, "File Cannot be created");
          }
       }
-      if(fileName.length() > 0)
+      if (fileName.length() > 0)
          return true;
       return false;
    }
 
    @Override
-   public void openFile(String bookName)
+   public boolean openFile(String bookName) throws AddressBookExceptions
    {
+      File fileName = new File(bookName + ".json");
+      if (fileName.exists() )
+      {
+         if(fileName.length() != 0)
+         {
+            BufferedReader br = null;
+            try
+            {
+               br = new BufferedReader(new FileReader(fileName));
+            }
+            catch (FileNotFoundException e)
+            {
+               throw new AddressBookExceptions
+                     (ObjectDependency.addressBookExceptions.exceptionType.FILE_NOT_FOUND, "File not Found");
+            }
+            ObjectDependency.bookData = ObjectDependency.gson.fromJson(br, AddressBook.class);
+            personList.addAll(ObjectDependency.bookData.getPersonsList());
 
+            for (int i = 0; i < personList.size(); i++)
+            {
+               System.out.println(ObjectDependency.bookData.getPersonsList().get(i).getFirstName());
+            }
+            return true;
+         }
+      }
+      return false;
    }
 
    @Override

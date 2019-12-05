@@ -6,11 +6,12 @@ public class AddressBookExceptions extends Exception
 
    public enum exceptionType
    {
-      NULL_FILENAME, IO_EXCEPTION, EMPTY_FILE
+      NULL_FILENAME, IO_EXCEPTION, EMPTY_FILE, FILE_NOT_FOUND
    }
 
    public AddressBookExceptions()
    {
+
    }
 
    public AddressBookExceptions(exceptionType type, String message)
