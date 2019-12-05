@@ -53,7 +53,7 @@ public class AddressBookServices implements BookBehaviorDefinition
       File fileName = new File(bookName + ".json");
       if (fileName.exists())
       {
-         if(fileName.length() !=0)
+         if (fileName.length() != 0)
          {
             br = new BufferedReader(new FileReader(fileName));
             ObjectDependency.bookData = ObjectDependency.gson.fromJson(br, AddressBook.class);
@@ -134,9 +134,19 @@ public class AddressBookServices implements BookBehaviorDefinition
    }
 
    @Override
-   public void saveAs(String bookName)
+   public boolean saveAs(String oldName, String newName)
    {
-
+      if (oldName.length() > 0 && newName.length() > 0)
+      {
+         File fileName = new File(oldName + ".json");
+         if (fileName.exists())
+         {
+            File renameFile = new File(newName + ".json");
+            fileName.renameTo(renameFile);
+            return true;
+         }
+      }
+      return false;
    }
 
    @Override
@@ -144,13 +154,13 @@ public class AddressBookServices implements BookBehaviorDefinition
    {
       for (int i = 0; i < personList.size(); i++)
       {
-         System.out.println("FirstName: "+ObjectDependency.bookData.getPersonsList().get(i).getFirstName());
-         System.out.println("LastName: "+ObjectDependency.bookData.getPersonsList().get(i).getLastName());
-         System.out.println("Address: "+ObjectDependency.bookData.getPersonsList().get(i).getAddress());
-         System.out.println("City: "+ObjectDependency.bookData.getPersonsList().get(i).getCity());
-         System.out.println("State: "+ObjectDependency.bookData.getPersonsList().get(i).getState());
-         System.out.println("Zip: "+ObjectDependency.bookData.getPersonsList().get(i).getZip());
-         System.out.println("PhoneNumber: "+ObjectDependency.bookData.getPersonsList().get(i).getPhoneNumber());
+         System.out.println("FirstName: " + ObjectDependency.bookData.getPersonsList().get(i).getFirstName());
+         System.out.println("LastName: " + ObjectDependency.bookData.getPersonsList().get(i).getLastName());
+         System.out.println("Address: " + ObjectDependency.bookData.getPersonsList().get(i).getAddress());
+         System.out.println("City: " + ObjectDependency.bookData.getPersonsList().get(i).getCity());
+         System.out.println("State: " + ObjectDependency.bookData.getPersonsList().get(i).getState());
+         System.out.println("Zip: " + ObjectDependency.bookData.getPersonsList().get(i).getZip());
+         System.out.println("PhoneNumber: " + ObjectDependency.bookData.getPersonsList().get(i).getPhoneNumber());
          System.out.println("-----------------------");
       }
    }

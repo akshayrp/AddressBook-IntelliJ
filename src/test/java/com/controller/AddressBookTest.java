@@ -34,7 +34,15 @@ public class AddressBookTest
    @Test
    public void givenFileNameAndData_WhenCorrectAndExist_AddDataIntoFile() throws AddressBookExceptions, FileNotFoundException
    {
-      Assert.assertTrue(service.addData("firstFile","Akshay","Patwari","Kothrud","Pune","Maharashtra",0114520,789456123));
+      Assert.assertTrue(service.addData(
+            "firstFile",
+            "Akshay",
+            "Patwari",
+            "Kothrud",
+            "Pune",
+            "Maharashtra",
+            0114520,
+            789456123));
    }
 
    @Test
@@ -54,4 +62,23 @@ public class AddressBookTest
    {
       Assert.assertFalse(service.openFile("abc"));
    }
+
+   @Test
+   public void givenOldFileNameAndNewFileName_WhenCorrect_RenameFile()
+   {
+      Assert.assertTrue(service.saveAs("firstFile","newFile"));
+   }
+
+   @Test
+   public void givenOldFileNameAndNewFileName_WhenDoesNotExist_RenameFile()
+   {
+      Assert.assertFalse(service.saveAs("dsfg","newFile"));
+   }
+
+   @Test
+   public void givenOldFileNameAndNewFileName_WhenBothOrOneEmpty_DoesNotRenamesFile()
+   {
+      Assert.assertFalse(service.saveAs("",""));
+   }
+
 }
