@@ -46,7 +46,7 @@ public class AddressBookTest
    @Test
    public void givenFileName_WhenExist_OpensFileToReadData() throws AddressBookExceptions
    {
-      Assert.assertTrue(service.openFile("FirstFile"));
+      Assert.assertTrue(service.openFile("firstFile"));
    }
 
    @Test

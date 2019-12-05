@@ -125,11 +125,8 @@ public class AddressBookServices implements BookBehaviorDefinition
             }
             ObjectDependency.bookData = ObjectDependency.gson.fromJson(br, AddressBook.class);
             personList.addAll(ObjectDependency.bookData.getPersonsList());
+            ReadFromFile();
 
-            for (int i = 0; i < personList.size(); i++)
-            {
-               System.out.println(ObjectDependency.bookData.getPersonsList().get(i).getFirstName());
-            }
             return true;
          }
       }
@@ -143,8 +140,18 @@ public class AddressBookServices implements BookBehaviorDefinition
    }
 
    @Override
-   public void ReadFromFile(String bookName)
+   public void ReadFromFile()
    {
-
+      for (int i = 0; i < personList.size(); i++)
+      {
+         System.out.println("FirstName: "+ObjectDependency.bookData.getPersonsList().get(i).getFirstName());
+         System.out.println("LastName: "+ObjectDependency.bookData.getPersonsList().get(i).getLastName());
+         System.out.println("Address: "+ObjectDependency.bookData.getPersonsList().get(i).getAddress());
+         System.out.println("City: "+ObjectDependency.bookData.getPersonsList().get(i).getCity());
+         System.out.println("State: "+ObjectDependency.bookData.getPersonsList().get(i).getState());
+         System.out.println("Zip: "+ObjectDependency.bookData.getPersonsList().get(i).getZip());
+         System.out.println("PhoneNumber: "+ObjectDependency.bookData.getPersonsList().get(i).getPhoneNumber());
+         System.out.println("-----------------------");
+      }
    }
 }
