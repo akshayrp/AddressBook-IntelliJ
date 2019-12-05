@@ -13,6 +13,8 @@ public class AddressBookServices implements BookBehaviorDefinition
 
    ObjectFactory ObjectDependency = new ObjectFactory();
    List<Person> personList = new ArrayList<Person>();
+   BufferedReader br = null;
+
 
    @Override
    public boolean newAddressBook(String bookName) throws AddressBookExceptions
@@ -45,32 +47,41 @@ public class AddressBookServices implements BookBehaviorDefinition
    }
 
    @Override
-   public boolean addData(String bookName, String fName, String lName, String Add, String City, String State, int Zip, int Phone) throws AddressBookExceptions
+   public boolean addData(String bookName, String fName, String lName, String Add,
+                          String City, String State, int Zip, int Phone) throws AddressBookExceptions, FileNotFoundException
    {
       File fileName = new File(bookName + ".json");
       if (fileName.exists())
       {
-         System.out.println("Enter Data");
+         if(fileName.length() !=0)
+         {
+            br = new BufferedReader(new FileReader(fileName));
+            ObjectDependency.bookData = ObjectDependency.gson.fromJson(br, AddressBook.class);
+            personList.addAll(ObjectDependency.bookData.getPersonsList());
+         }
+/*         System.out.println("Enter Data");
          System.out.println("Enter FirstName");
-         // ObjectDependency.personData.setFirstName(input.nextLine());
-         ObjectDependency.personData.setFirstName(fName);
+         ObjectDependency.personData.setFirstName(input.nextLine());
          System.out.println("Enter LastName");
-         // ObjectDependency.personData.setLastName(input.nextLine());
-         ObjectDependency.personData.setLastName(lName);
+         ObjectDependency.personData.setLastName(input.nextLine());
          System.out.println("Enter Address");
-         // ObjectDependency.personData.setAddress(input.nextLine());
-         ObjectDependency.personData.setAddress(Add);
+         ObjectDependency.personData.setAddress(input.nextLine());
          System.out.println("Enter City");
-         // ObjectDependency.personData.setCity(input.nextLine());
-         ObjectDependency.personData.setCity(City);
+         ObjectDependency.personData.setCity(input.nextLine());
          System.out.println("Enter State");
-         // ObjectDependency.personData.setState(input.nextLine());
-         ObjectDependency.personData.setState(State);
+         ObjectDependency.personData.setState(input.nextLine());
          System.out.println("Enter Zip Code");
-         // ObjectDependency.personData.setZip(input.nextInt());
-         ObjectDependency.personData.setZip(Zip);
+         ObjectDependency.personData.setZip(input.nextInt());
          System.out.println("Enter Phone Number");
-         // ObjectDependency.personData.setZip(input.nextInt());
+         ObjectDependency.personData.setZip(input.nextInt());*/
+
+
+         ObjectDependency.personData.setFirstName(fName);
+         ObjectDependency.personData.setLastName(lName);
+         ObjectDependency.personData.setAddress(Add);
+         ObjectDependency.personData.setCity(City);
+         ObjectDependency.personData.setState(State);
+         ObjectDependency.personData.setZip(Zip);
          ObjectDependency.personData.setPhoneNumber(Phone);
 
          personList.add(ObjectDependency.personData);
@@ -98,11 +109,11 @@ public class AddressBookServices implements BookBehaviorDefinition
    public boolean openFile(String bookName) throws AddressBookExceptions
    {
       File fileName = new File(bookName + ".json");
-      if (fileName.exists() )
+      if (fileName.exists())
       {
-         if(fileName.length() != 0)
+         if (fileName.length() != 0)
          {
-            BufferedReader br = null;
+
             try
             {
                br = new BufferedReader(new FileReader(fileName));
