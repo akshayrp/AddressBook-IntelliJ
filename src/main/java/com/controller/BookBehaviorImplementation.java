@@ -17,7 +17,7 @@ public class BookBehaviorImplementation implements BookBehaviorDefinition
    @Override
    public boolean newAddressBook(String bookName)
    {
-      File fileName = new File(ObjectDependency.filePath+"/"+bookName + ".json");
+      File fileName = new File(ObjectDependency.filePath + "/" + bookName + ".json");
       try
       {
          if (bookName == null || bookName.length() == 0)
@@ -48,7 +48,7 @@ public class BookBehaviorImplementation implements BookBehaviorDefinition
    public boolean addData(String bookName, String fName, String lName, String Add,
                           String City, String State, int Zip, int Phone) throws AddressBookExceptions, FileNotFoundException
    {
-      File fileName = new File(ObjectDependency.filePath+"/"+bookName + ".json");
+      File fileName = new File(ObjectDependency.filePath + "/" + bookName + ".json");
       if (fileName.exists())
       {
          if (fileName.length() != 0)
@@ -83,7 +83,6 @@ public class BookBehaviorImplementation implements BookBehaviorDefinition
          ObjectDependency.personData.setPhoneNumber(Phone);
 
 
-
          try
          {
             writeIntoJson(fileName);
@@ -103,7 +102,7 @@ public class BookBehaviorImplementation implements BookBehaviorDefinition
    @Override
    public boolean openFile(String bookName) throws AddressBookExceptions
    {
-      File fileName = new File(ObjectDependency.filePath+"/"+bookName + ".json");
+      File fileName = new File(ObjectDependency.filePath + "/" + bookName + ".json");
       if (fileName.exists())
       {
          if (fileName.length() != 0)
@@ -133,10 +132,10 @@ public class BookBehaviorImplementation implements BookBehaviorDefinition
    {
       if (oldName.length() > 0 && newName.length() > 0)
       {
-         File fileName = new File(ObjectDependency.filePath+"/"+oldName + ".json");
+         File fileName = new File(ObjectDependency.filePath + "/" + oldName + ".json");
          if (fileName.exists())
          {
-            File renameFile = new File(ObjectDependency.filePath+"/"+newName + ".json");
+            File renameFile = new File(ObjectDependency.filePath + "/" + newName + ".json");
             fileName.renameTo(renameFile);
             return true;
          }
@@ -164,7 +163,7 @@ public class BookBehaviorImplementation implements BookBehaviorDefinition
    public String editData(String bookName, int mobileNumber, String fieldName, String newValue) throws AddressBookExceptions, IOException
    {
       openFile(bookName);
-      File fileName = new File(ObjectDependency.filePath+"/"+bookName + ".json");
+      File fileName = new File(ObjectDependency.filePath + "/" + bookName + ".json");
       for (int i = 0; i < ObjectDependency.personList.size(); i++)
       {
          if (mobileNumber == ObjectDependency.personList.get(i).getPhoneNumber())
@@ -202,8 +201,20 @@ public class BookBehaviorImplementation implements BookBehaviorDefinition
    }
 
    @Override
-   public boolean deleteData(String bookName, String mobileNumber)
+   public boolean deleteData(String bookName, int mobileNumber) throws AddressBookExceptions, IOException
    {
+      openFile(bookName);
+      File fileName = new File(ObjectDependency.filePath + "/" + bookName + ".json");
+      for (int i = 0; i < ObjectDependency.personList.size(); i++)
+      {
+         if (mobileNumber == ObjectDependency.personList.get(i).getPhoneNumber())
+         {
+            ObjectDependency.bookData.getPersonsList().remove(i);
+            FileWriter writer = new FileWriter(fileName);
+            writer.write(ObjectDependency.gson.toJson(ObjectDependency.bookData));
+            return true;
+         }
+      }
       return false;
    }
 

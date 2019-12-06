@@ -93,4 +93,16 @@ public class AddressBookTest
       Assert.assertNotEquals("Mumbai",behavior.editData("firstFile",789456123,"city","Mumbai"));
 
    }
+
+   @Test
+   public void givenFileNameAndUniqueMobileNumber_WhenExists_DeletesTheData() throws IOException, AddressBookExceptions
+   {
+      Assert.assertTrue(behavior.deleteData("firstFile",789456123));
+   }
+
+   @Test
+   public void givenFileNameAndMobileNumber_WhenDoesNotExist_DeletesNothing() throws IOException, AddressBookExceptions
+   {
+      Assert.assertFalse(behavior.deleteData("firstFile",789456783));
+   }
 }
