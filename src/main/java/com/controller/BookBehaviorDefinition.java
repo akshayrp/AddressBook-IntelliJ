@@ -4,6 +4,7 @@ import com.Exceptions.AddressBookExceptions;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 public interface BookBehaviorDefinition
 {
@@ -21,5 +22,5 @@ public interface BookBehaviorDefinition
 
    boolean deleteData(String bookName, int mobileNumber) throws AddressBookExceptions, IOException;
 
-   boolean sortData(String bookName, String sortBy);
+   boolean sortData(String bookName,String fieldName) throws InvocationTargetException, IllegalAccessException, AddressBookExceptions, IOException;
 }

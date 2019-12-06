@@ -15,6 +15,6 @@ public class ObjectFactory
    AddressBook bookData = new AddressBook();
    AddressBookExceptions addressBookExceptions = new AddressBookExceptions();
    String filePath = "/home/admin1/IdeaProjects/AddressBook/src/main/java/com/JsonFiles";
-   List<Person> personList = new ArrayList<Person>();
+   List<Person> personList = new ArrayList<>();
 
 }

@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.controller.AddressBookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-06T07:14:51" hostname="admin1-desktop" time="0.01">
+<testsuite name="com.controller.AddressBookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-06T11:03:13" hostname="admin1-desktop" time="0.01">
   <properties/>
-  <testcase name="givenFileNameAndMobileNumber_WhenDoesNotExist_DeletesNothing" classname="com.controller.AddressBookTest" time="0.01"/>
-  <system-out><![CDATA[FirstName: Akshay
+  <testcase name="givenFileName_WhenExist_OpensFileToReadData" classname="com.controller.AddressBookTest" time="0.01"/>
+  <system-out><![CDATA[null
+FirstName: Akshay
 LastName: Patwari
 Address: Kothrud
 City: Pune
 State: Maharashtra
 Zip: 39248
 PhoneNumber: 789456123
+-----------------------
+FirstName: Zafar
+LastName: abid
+Address: Kurla
+City: Mumbai
+State: Maharashtra
+Zip: 500987
+PhoneNumber: 321654987
+-----------------------
+FirstName: Mangesh
+LastName: Patil
+Address: Pimpri
+City: Pune
+State: Maharashtra
+Zip: 945170
+PhoneNumber: 456987321
+-----------------------
+FirstName: null
+LastName: null
+Address: null
+City: null
+State: null
+Zip: 0
+PhoneNumber: 0
 -----------------------
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
