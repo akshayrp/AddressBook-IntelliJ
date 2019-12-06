@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.controller.AddressBookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-06T03:49:58" hostname="admin1-desktop" time="0.009">
+<testsuite name="com.controller.AddressBookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-06T06:29:31" hostname="admin1-desktop" time="0.012">
   <properties/>
-  <testcase name="givenFileName_WhenExist_OpensFileToReadData" classname="com.controller.AddressBookTest" time="0.009"/>
+  <testcase name="givenFileNameAndFieldNameAndFieldValue_WhenCorrect_ReplaceFieldValue" classname="com.controller.AddressBookTest" time="0.012"/>
   <system-out><![CDATA[FirstName: Akshay
 LastName: Patwari
 Address: Kothrud
-City: Pune
+City: Mumbai
 State: Maharashtra
 Zip: 39248
 PhoneNumber: 789456123
+-----------------------
+FirstName: null
+LastName: null
+Address: null
+City: null
+State: null
+Zip: 0
+PhoneNumber: 0
 -----------------------
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

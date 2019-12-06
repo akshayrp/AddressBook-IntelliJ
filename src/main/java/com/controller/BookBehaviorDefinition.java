@@ -3,6 +3,7 @@ package com.controller;
 import com.Exceptions.AddressBookExceptions;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public interface BookBehaviorDefinition
 {
@@ -11,4 +12,7 @@ public interface BookBehaviorDefinition
    public boolean openFile(String bookName) throws FileNotFoundException, AddressBookExceptions;
    public boolean saveAs(String oldName, String newName);
    public void ReadFromFile();
+   String editData(String bookName,int mobileNumber, String fieldName,String newValue) throws IOException, AddressBookExceptions;
+   boolean deleteData(String bookName,String mobileNumber);
+   boolean sortData(String bookName,String sortBy);
 }

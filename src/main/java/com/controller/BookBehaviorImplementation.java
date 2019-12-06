@@ -8,17 +8,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressBookServices implements BookBehaviorDefinition
+public class BookBehaviorImplementation implements BookBehaviorDefinition
 {
 
    ObjectFactory ObjectDependency = new ObjectFactory();
-   List<Person> personList = new ArrayList<Person>();
    BufferedReader br = null;
-   String filePath = "/home/admin1/IdeaProjects/AddressBook/src/main/java/com/JsonFiles";
+
    @Override
-   public boolean newAddressBook(String bookName) throws AddressBookExceptions
+   public boolean newAddressBook(String bookName)
    {
-      File fileName = new File(filePath+"/"+bookName + ".json");
+      File fileName = new File(ObjectDependency.filePath+"/"+bookName + ".json");
       try
       {
          if (bookName == null || bookName.length() == 0)
@@ -49,14 +48,14 @@ public class AddressBookServices implements BookBehaviorDefinition
    public boolean addData(String bookName, String fName, String lName, String Add,
                           String City, String State, int Zip, int Phone) throws AddressBookExceptions, FileNotFoundException
    {
-      File fileName = new File(filePath+"/"+bookName + ".json");
+      File fileName = new File(ObjectDependency.filePath+"/"+bookName + ".json");
       if (fileName.exists())
       {
          if (fileName.length() != 0)
          {
             br = new BufferedReader(new FileReader(fileName));
             ObjectDependency.bookData = ObjectDependency.gson.fromJson(br, AddressBook.class);
-            personList.addAll(ObjectDependency.bookData.getPersonsList());
+            ObjectDependency.personList.addAll(ObjectDependency.bookData.getPersonsList());
          }
 /*         System.out.println("Enter Data");
          System.out.println("Enter FirstName");
@@ -83,14 +82,11 @@ public class AddressBookServices implements BookBehaviorDefinition
          ObjectDependency.personData.setZip(Zip);
          ObjectDependency.personData.setPhoneNumber(Phone);
 
-         personList.add(ObjectDependency.personData);
-         ObjectDependency.bookData.setPersonsList(personList);
+
 
          try
          {
-            FileWriter writer = new FileWriter(fileName);
-            writer.write(ObjectDependency.gson.toJson(ObjectDependency.bookData));
-            writer.close();
+            writeIntoJson(fileName);
             return true;
          }
          catch (IOException e)
@@ -107,7 +103,7 @@ public class AddressBookServices implements BookBehaviorDefinition
    @Override
    public boolean openFile(String bookName) throws AddressBookExceptions
    {
-      File fileName = new File(filePath+"/"+bookName + ".json");
+      File fileName = new File(ObjectDependency.filePath+"/"+bookName + ".json");
       if (fileName.exists())
       {
          if (fileName.length() != 0)
@@ -123,7 +119,7 @@ public class AddressBookServices implements BookBehaviorDefinition
                      (ObjectDependency.addressBookExceptions.exceptionType.FILE_NOT_FOUND, "File not Found");
             }
             ObjectDependency.bookData = ObjectDependency.gson.fromJson(br, AddressBook.class);
-            personList.addAll(ObjectDependency.bookData.getPersonsList());
+            ObjectDependency.personList.addAll(ObjectDependency.bookData.getPersonsList());
             ReadFromFile();
 
             return true;
@@ -137,10 +133,10 @@ public class AddressBookServices implements BookBehaviorDefinition
    {
       if (oldName.length() > 0 && newName.length() > 0)
       {
-         File fileName = new File(filePath+"/"+oldName + ".json");
+         File fileName = new File(ObjectDependency.filePath+"/"+oldName + ".json");
          if (fileName.exists())
          {
-            File renameFile = new File(filePath+"/"+newName + ".json");
+            File renameFile = new File(ObjectDependency.filePath+"/"+newName + ".json");
             fileName.renameTo(renameFile);
             return true;
          }
@@ -151,7 +147,7 @@ public class AddressBookServices implements BookBehaviorDefinition
    @Override
    public void ReadFromFile()
    {
-      for (int i = 0; i < personList.size(); i++)
+      for (int i = 0; i < ObjectDependency.personList.size(); i++)
       {
          System.out.println("FirstName: " + ObjectDependency.bookData.getPersonsList().get(i).getFirstName());
          System.out.println("LastName: " + ObjectDependency.bookData.getPersonsList().get(i).getLastName());
@@ -162,5 +158,67 @@ public class AddressBookServices implements BookBehaviorDefinition
          System.out.println("PhoneNumber: " + ObjectDependency.bookData.getPersonsList().get(i).getPhoneNumber());
          System.out.println("-----------------------");
       }
+   }
+
+   @Override
+   public String editData(String bookName, int mobileNumber, String fieldName, String newValue) throws AddressBookExceptions, IOException
+   {
+      openFile(bookName);
+      File fileName = new File(ObjectDependency.filePath+"/"+bookName + ".json");
+      for (int i = 0; i < ObjectDependency.personList.size(); i++)
+      {
+         if (mobileNumber == ObjectDependency.personList.get(i).getPhoneNumber())
+         {
+            switch (fieldName)
+            {
+               case "FirstName":
+                  ObjectDependency.bookData.getPersonsList().get(i).setFirstName(newValue);
+                  writeIntoJson(fileName);
+                  return ObjectDependency.bookData.getPersonsList().get(i).getFirstName();
+               case "LastName":
+                  ObjectDependency.bookData.getPersonsList().get(i).setLastName(newValue);
+                  writeIntoJson(fileName);
+                  return ObjectDependency.bookData.getPersonsList().get(i).getLastName();
+               case "City":
+                  ObjectDependency.bookData.getPersonsList().get(i).setCity(newValue);
+                  writeIntoJson(fileName);
+                  return ObjectDependency.bookData.getPersonsList().get(i).getCity();
+               case "State":
+                  ObjectDependency.bookData.getPersonsList().get(i).setState(newValue);
+                  writeIntoJson(fileName);
+                  return ObjectDependency.bookData.getPersonsList().get(i).getState();
+               case "Zip":
+                  ObjectDependency.bookData.getPersonsList().get(i).setZip(Integer.parseInt(newValue));
+                  writeIntoJson(fileName);
+                  return String.valueOf(ObjectDependency.bookData.getPersonsList().get(i).getZip());
+               case "MobileNumber":
+                  ObjectDependency.bookData.getPersonsList().get(i).setPhoneNumber(Integer.parseInt(newValue));
+                  writeIntoJson(fileName);
+                  return String.valueOf(ObjectDependency.bookData.getPersonsList().get(i).getPhoneNumber());
+            }
+         }
+      }
+      return "";
+   }
+
+   @Override
+   public boolean deleteData(String bookName, String mobileNumber)
+   {
+      return false;
+   }
+
+   @Override
+   public boolean sortData(String bookName, String sortBy)
+   {
+      return false;
+   }
+
+   public void writeIntoJson(File fileName) throws IOException
+   {
+      ObjectDependency.personList.add(ObjectDependency.personData);
+      ObjectDependency.bookData.setPersonsList(ObjectDependency.personList);
+      FileWriter writer = new FileWriter(fileName);
+      writer.write(ObjectDependency.gson.toJson(ObjectDependency.bookData));
+      writer.close();
    }
 }
