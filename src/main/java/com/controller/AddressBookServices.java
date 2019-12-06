@@ -14,12 +14,11 @@ public class AddressBookServices implements BookBehaviorDefinition
    ObjectFactory ObjectDependency = new ObjectFactory();
    List<Person> personList = new ArrayList<Person>();
    BufferedReader br = null;
-
-
+   String filePath = "/home/admin1/IdeaProjects/AddressBook/src/main/java/com/JsonFiles";
    @Override
    public boolean newAddressBook(String bookName) throws AddressBookExceptions
    {
-      File fileName = new File(bookName + ".json");
+      File fileName = new File(filePath+"/"+bookName + ".json");
       try
       {
          if (bookName == null || bookName.length() == 0)
@@ -50,7 +49,7 @@ public class AddressBookServices implements BookBehaviorDefinition
    public boolean addData(String bookName, String fName, String lName, String Add,
                           String City, String State, int Zip, int Phone) throws AddressBookExceptions, FileNotFoundException
    {
-      File fileName = new File(bookName + ".json");
+      File fileName = new File(filePath+"/"+bookName + ".json");
       if (fileName.exists())
       {
          if (fileName.length() != 0)
@@ -108,7 +107,7 @@ public class AddressBookServices implements BookBehaviorDefinition
    @Override
    public boolean openFile(String bookName) throws AddressBookExceptions
    {
-      File fileName = new File(bookName + ".json");
+      File fileName = new File(filePath+"/"+bookName + ".json");
       if (fileName.exists())
       {
          if (fileName.length() != 0)
@@ -138,10 +137,10 @@ public class AddressBookServices implements BookBehaviorDefinition
    {
       if (oldName.length() > 0 && newName.length() > 0)
       {
-         File fileName = new File(oldName + ".json");
+         File fileName = new File(filePath+"/"+oldName + ".json");
          if (fileName.exists())
          {
-            File renameFile = new File(newName + ".json");
+            File renameFile = new File(filePath+"/"+newName + ".json");
             fileName.renameTo(renameFile);
             return true;
          }

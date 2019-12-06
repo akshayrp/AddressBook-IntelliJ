@@ -2,7 +2,6 @@ package com.controller;
 
 import com.Exceptions.AddressBookExceptions;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -10,7 +9,7 @@ import java.io.FileNotFoundException;
 
 public class AddressBookTest
 {
-   AddressBookServices service = new AddressBookServices();
+   BookBehaviorDefinition service = new AddressBookServices();
 
 
    @Test
@@ -52,13 +51,13 @@ public class AddressBookTest
    }
 
    @Test
-   public void givenFileName_WhenExist_OpensFileToReadData() throws AddressBookExceptions
+   public void givenFileName_WhenExist_OpensFileToReadData() throws AddressBookExceptions, FileNotFoundException
    {
       Assert.assertTrue(service.openFile("firstFile"));
    }
 
    @Test
-   public void givenFileName_WhenDoNotExist_HandlesException() throws AddressBookExceptions
+   public void givenFileName_WhenDoNotExist_HandlesException() throws AddressBookExceptions, FileNotFoundException
    {
       Assert.assertFalse(service.openFile("abc"));
    }
