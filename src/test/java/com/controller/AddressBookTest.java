@@ -36,7 +36,7 @@ public class AddressBookTest
    public void givenFileNameAndData_WhenCorrectAndExist_AddDataIntoFile() throws AddressBookExceptions, FileNotFoundException
    {
       Assert.assertTrue(behavior.addData(
-            "firstFile",
+            "newFile",
             "Mangesh",
             "Patil",
             "Pimpri",
@@ -44,20 +44,6 @@ public class AddressBookTest
             "Maharashtra",
             945170,
             456987321));
-   }
-
-   @Test
-   public void givenFileNameAndData_WhenDataNull_DoesNotAcceptData() throws AddressBookExceptions, FileNotFoundException
-   {
-      Assert.assertFalse(behavior.addData(
-            "firstFile",
-            null,
-            null,
-            null,
-            null,
-            null,
-            0,
-            0));
    }
 
    @Test
@@ -75,7 +61,7 @@ public class AddressBookTest
    @Test
    public void givenOldFileNameAndNewFileName_WhenCorrect_RenameFile()
    {
-      Assert.assertTrue(behavior.saveAs("firstFile", "newFile"));
+      Assert.assertTrue(behavior.saveAs("newFile", "new"));
    }
 
    @Test

@@ -1,6 +1,7 @@
 package com.Exceptions;
 
-public class AddressBookExceptions extends Exception
+public class
+AddressBookExceptions extends Exception
 {
    public exceptionType exceptionType;
 
